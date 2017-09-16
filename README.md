@@ -19,13 +19,13 @@ Create a new container based on the new image. Port 50000 from the host is forwa
         -v $(pwd)/dmrlink.cfg:/opt/bridge/dmrlink.cfg \
         bridget
 
-You can create at many of these containers are you want to host multiple instances on one host. Just remember to give them each a unique port number or IP address and name.
+You can create as many of these containers as you want to serve multiple instances from one host. Just remember to give them each a unique port number or IP address and name.
 
 Start the bridget container:
 
     docker start -a bridget
 
-`-a` attaches the terminal to the container. This is useful for testing. To instead run it in the background, remove the `-a`:
+`-a` attaches your terminal to the container. This is useful for testing. To instead run it in the background, remove the `-a`:
 
     docker start bridget
 
@@ -35,7 +35,7 @@ To see what it's doing in the background, use the logs command:
 
 ## Configuration
 
-Docker logs output to stdout and stderr, so the recommended log handler is:
+Docker captures output from stdout and stderr, so the recommended log handler is:
 
     LOG_HANDLERS: console-timed
 
