@@ -16,7 +16,7 @@ Create a new container based on the new image. Port 50000 from the host is forwa
         --name bridget \
         -p 50000:50000 \
         -v $(pwd)/hblink.cfg:/opt/hblink/hblink.cfg \
-        -v $(pwd)/dmrlink.cfg:/opt/dmrlink/bridge/dmrlink.cfg \
+        -v $(pwd)/dmrlink.cfg:/opt/bridge/dmrlink.cfg \
         bridget
 
 Start the bridget container:

@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-/opt/dmrlink/bridge/IPSC_Bridge.py &
+/opt/bridge/IPSC_Bridge.py &
 /opt/hblink/HB_Bridge.py &
 while /bin/true; do
 	for process in IPSC_Bridge.py HB_Bridge.py; do
