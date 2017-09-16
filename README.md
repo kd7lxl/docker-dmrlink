@@ -1,5 +1,3 @@
-This is an example and entirely untested.
-
 ## Install Prerequisites
 
 https://docs.docker.com/engine/installation/linux/docker-ce/debian/#install-using-the-repository
