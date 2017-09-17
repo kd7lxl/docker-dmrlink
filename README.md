@@ -4,24 +4,30 @@ https://docs.docker.com/engine/installation/linux/docker-ce/debian/#install-usin
 
 ## Typical Usage
 
-Build an image out of the included Dockerfile:
-
-    docker build -t bridget .
-
-Create a new container based on the new image. Port 50000 from the host is forwarded to port 50000 of the container. Change this to your desired port. `hblink.cfg` and `dmrlink.cfg` should be placed in this folder and will be attached to the container. Use 127.0.0.1 as the IP address in your configuration files. Docker will handle forwarding from the host port to the conatiner's port on localhost.
+Create a new container based on the `thayward/dmrlink` image from Docker Hub. It should download automatically. UDP port 55555 from the host is forwarded to port 55555 of the container. Change this to the port you defined in `hblink.cfg`. `hblink.cfg` and `dmrlink.cfg` should be placed in the current directory (or change the path in the command) and will be attached to the container.
 
     docker create \
         --name bridget \
-        -p 50000:50000 \
-        -v $(pwd)/hblink.cfg:/opt/hblink/hblink.cfg \
+        -p 55555:55555/udp \
         -v $(pwd)/dmrlink.cfg:/opt/bridge/dmrlink.cfg \
-        bridget
+        -v $(pwd)/hblink.cfg:/opt/hblink/hblink.cfg \
+        -v $(pwd)/HB_Bridge.cfg:/opt/hblink/HB_Bridge.cfg \
+        thayward/dmrlink
 
-You can create as many of these containers as you want to serve multiple instances from one host. Just remember to give them each a unique port number or IP address and name.
+You can create as many of these containers as you want to serve multiple instances from one host. Just remember to give them each a unique port number or IP address and name. Here's an example of a second instance:
 
-Start the bridget container:
+    docker create \
+        --name bridget2 \
+        -p 55556:55556/udp \
+        -v $(pwd)/dmrlink2.cfg:/opt/bridge/dmrlink.cfg \
+        -v $(pwd)/hblink.cfg:/opt/hblink/hblink.cfg \
+        -v $(pwd)/HB_Bridge.cfg:/opt/hblink/HB_Bridge.cfg \
+        thayward/dmrlink
+
+Start the bridget containers:
 
     docker start -a bridget
+    docker start -a bridget2
 
 `-a` attaches your terminal to the container. This is useful for testing. To instead run it in the background, remove the `-a`:
 
